@@ -1,5 +1,6 @@
 package academy.learnprogramming;
 
+import academy.learnprogramming.annotations.GuessCount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,18 @@ public class GameImpl implements Game {
     private static final Logger logger = LoggerFactory.getLogger(GameImpl.class);
 
     // == fields ==
-    @Autowired
+
     private NumberGenerator numberGenerator;
-    private int guessCount = 10;
+    private int guessCount;
+
+    // == constructors ==
+
+    @Autowired
+    public GameImpl(NumberGenerator numberGenerator, @GuessCount int guessCount) {
+        this.numberGenerator = numberGenerator;
+        this.guessCount = guessCount;
+    }
+
     private int number;
     private int guess;
     private int smallest;
@@ -29,8 +39,8 @@ public class GameImpl implements Game {
     @PostConstruct
     @Override
     public void reset() {
-        smallest = 0;
-        guess = 0;
+        smallest = numberGenerator.getMinNumber();
+        guess = numberGenerator.getMinNumber();
         remainingGuesses = guessCount;
         biggest = numberGenerator.getMaxNumber();
         number = numberGenerator.next();
@@ -61,6 +71,7 @@ public class GameImpl implements Game {
     @Override
     public void setGuess(int guess) {
         this.guess = guess;
+        this.remainingGuesses -=  1;
     }
 
     @Override
@@ -74,8 +85,13 @@ public class GameImpl implements Game {
     }
 
     @Override
-    public int getRemaining() {
+    public int getRemainingGuesses() {
         return remainingGuesses;
+    }
+
+    @Override
+    public int getGuessCount() {
+        return guessCount;
     }
 
     @Override
