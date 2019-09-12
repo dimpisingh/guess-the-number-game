@@ -1,21 +1,21 @@
 package academy.learnprogramming;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.text.MessageFormat;
 
+@Slf4j
 @Component
 public class MessageGeneratorImpl implements MessageGenerator{
 
-    // == constants ==
-    private static final Logger logger = LoggerFactory.getLogger(MessageGeneratorImpl.class);
-
     // == private fields ==
+    @Getter(AccessLevel.NONE)
     private final Game game;
 
     @Autowired
@@ -25,7 +25,7 @@ public class MessageGeneratorImpl implements MessageGenerator{
 
     @PostConstruct
     public void init(){
-        logger.debug("game value = {}", game);
+        log.debug("game value = {}", game);
     }
 
     @Override
