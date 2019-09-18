@@ -1,16 +1,16 @@
-package academy.learnprogramming;
+package academy.learnprogramming.service;
 
 import academy.learnprogramming.annotations.MaxNumber;
 import academy.learnprogramming.annotations.MinNumber;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 
 @Slf4j
-@Component
+@Service
 public class NumberGeneratorImpl implements NumberGenerator {
 
     // == fields ==
